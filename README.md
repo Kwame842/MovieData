@@ -1,147 +1,164 @@
-# MovieData
-TMDB Movie Data Analysis Project
-Project Overview
-This project analyzes movie data from The Movie Database (TMDB) API to uncover insights about film performance, genre profitability, and franchise success. The analysis includes data collection, cleaning, exploratory analysis, and visualization of key metrics.
+# 🎬 MovieData  
+**TMDB Movie Data Analysis Project**
 
-Prerequisites
-Before running the project, ensure you have the following installed:
+## 📌 Project Overview  
+This project analyzes movie data from [The Movie Database (TMDB)](https://www.themoviedb.org/) API to uncover insights about film performance, genre profitability, and franchise success.  
+The analysis includes:
 
-Python 3.8+
+- Data collection from TMDB API  
+- Data cleaning and preprocessing  
+- Exploratory data analysis  
+- Visualization of key metrics
 
-pip (Python package manager)
+---
 
-Jupyter Notebook (optional, for interactive analysis)
+## 🛠️ Prerequisites  
+Ensure the following are installed before running the project:
 
-Installation
-Clone the repository:
+- Python 3.8+  
+- `pip` (Python package manager)  
+- Jupyter Notebook *(optional, for interactive analysis)*
 
+---
 
-git clone https://github.com/Kwame842/MovieData.git
+## 🚀 Installation  
+
+### 1. Clone the Repository  
+```bash
+git clone https://github.com/Kwame842/MovieData.git  
 cd tmdb-movie-analysis
-Create and activate a virtual environment (recommended):
+```
 
+### 2. Create and Activate a Virtual Environment *(Recommended)*  
+**Linux/Mac:**  
+```bash
+python -m venv venv  
+source venv/bin/activate
+```
 
-python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-Install required packages:
+**Windows:**  
+```bash
+python -m venv venv  
+venv\Scripts\activate
+```
 
-
+### 3. Install Required Packages  
+```bash
 pip install -r requirements.txt
-Configuration
-Obtain a TMDB API key:
+```
 
-Register at https://www.themoviedb.org/settings/api
+---
 
-Create a .env file in the project root and add your API key:
+## 🔐 Configuration  
 
+### 1. Obtain a TMDB API Key  
+- Register at [TMDB API Settings](https://www.themoviedb.org/settings/api)  
+- Generate an API key
 
+### 2. Create a `.env` File  
+In the root of the project, create a `.env` file and add the following:  
+```env
 TMDB_API_KEY=your_api_key_here
-Running the Analysis
-Option 1: Run as Jupyter Notebook
-Start Jupyter Notebook:
+```
 
-bash
-Copy
+---
+
+## ▶️ Running the Analysis  
+
+### Option 1: Run in Jupyter Notebook  
+```bash
 jupyter notebook
-Open movie_analysis.ipynb
+```
+- Open `movie_analysis.ipynb`  
+- Run all cells sequentially  
 
-Run all cells sequentially
-
-Option 2: Run as Python Script
-bash
-Copy
+### Option 2: Run as Python Script  
+```bash
 python main.py
-Project Structure
-Copy
+```
+
+---
+
+## 🧱 Project Structure  
+```
 tmdb-movie-analysis/
-├── data/                   # Contains raw and processed data files
+├── data/
 │   ├── raw/                # Raw JSON responses from API
 │   └── processed/          # Cleaned CSV files
-├── notebooks/              # Jupyter notebooks for analysis
+├── notebooks/
 │   └── movie_analysis.ipynb
-├── scripts/                # Python modules
+├── scripts/
 │   ├── data_fetch.py       # API data collection
 │   ├── data_clean.py       # Data cleaning and processing
 │   ├── analysis.py         # Analytical functions
 │   └── visualization.py    # Plot generation
-├── reports/                # Generated reports and visualizations
+├── reports/
+│   ├── figures/            # Output charts and graphs
+│   └── analysis_report.pdf # Summary of key findings
 ├── .env.example            # Example environment config
-├── requirements.txt        # Python dependencies
-├── main.py                 # Main executable script
-└── README.md               # This file
-Key Features
-Fetches movie data from TMDB API
+├── requirements.txt        # Project dependencies
+├── main.py                 # Main execution script
+└── README.md               # Project documentation
+```
 
-Cleans and preprocesses raw JSON data
+---
 
-Performs financial and ratings analysis
+## ✨ Key Features  
 
-Generates visualizations:
+- ✅ Fetches movie data from TMDB API  
+- 🧹 Cleans and preprocesses raw JSON data  
+- 📊 Performs financial and ratings analysis  
+- 📈 Generates insightful visualizations:
+  - Revenue vs Budget scatter plots  
+  - ROI by genre boxplots  
+  - Yearly film trend lines  
+  - Popularity vs Rating correlations  
 
-Revenue vs Budget scatter plots
+---
 
-ROI by genre boxplots
+## 📤 Outputs  
 
-Yearly trends in film economics
-
-Popularity vs Rating analysis
-
-Outputs
 Running the project will generate:
 
-Data files in data/processed/:
+### Processed Data  
+Located in `data/processed/`:
+- `movies_clean.csv` – Cleaned dataset  
+- `franchise_stats.csv` – Franchise performance metrics  
 
-movies_clean.csv - Cleaned dataset
+### Visualizations  
+Located in `reports/figures/`:
+- Revenue vs Budget plots  
+- Genre ROI distributions  
+- Yearly trend charts  
+- Popularity vs Rating plots  
 
-franchise_stats.csv - Franchise performance metrics
+### Reports  
+- `analysis_report.pdf` – Summary of findings  
 
-Visualizations in reports/figures/:
+---
 
-Revenue vs Budget plots
+## 🧰 Troubleshooting  
 
-Genre ROI distributions
+| Issue                | Cause & Solution                                                   |
+|---------------------|---------------------------------------------------------------------|
+| **API Limit Errors**     | TMDB limits ~40 requests per 10 seconds. Add delays or request higher rate limits. |
+| **Missing Data**        | Some movies lack financials. The script automatically handles missing values.        |
+| **Authentication Errors** | Ensure `.env` contains a valid API key and has the required permissions.            |
 
-Yearly trends charts
+---
 
-Popularity-Rating relationships
+## 🤝 Contributing  
 
-Analysis report in reports/:
+Contributions are welcome! To contribute:
 
-analysis_report.pdf - Summary of key findings
+1. Fork the repository  
+2. Create a new feature branch  
+3. Commit your changes  
+4. Push to your fork  
+5. Open a pull request  
 
-Troubleshooting
-Common issues and solutions:
+---
 
-API Limit Errors:
+## 📄 License  
 
-TMDB has rate limits (typically 40 requests/10 seconds)
-
-Solution: Add delays between requests or request higher limits
-
-Missing Data:
-
-Some movies may have incomplete financial data
-
-Solution: Script automatically handles missing values
-
-Authentication Errors:
-
-Ensure your API key is correctly set in .env
-
-Verify the key has proper permissions
-
-Contributing
-Contributions are welcome! Please follow these steps:
-
-Fork the repository
-
-Create a feature branch
-
-Commit your changes
-
-Push to the branch
-
-Open a pull request
-
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the [MIT License](LICENSE).
