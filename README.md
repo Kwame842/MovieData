@@ -93,12 +93,11 @@ tmdb-movie-analysis/
 │   ├── analysis.py         # Analytical functions
 │   └── visualization.py    # Plot generation
 ├── reports/
-│   ├── figures/            # Output charts and graphs
-│   └── analysis_report.pdf # Summary of key findings
-├── .env.example            # Example environment config
+│   ├── TMDB_report.pdf     # Summary of key findings
 ├── requirements.txt        # Project dependencies
 ├── main.py                 # Main execution script
 └── README.md               # Project documentation
+├── .env.example            # Example environment config
 ```
 
 ---
