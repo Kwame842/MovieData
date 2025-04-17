@@ -1,5 +1,3 @@
-:
-
 📦 Inventory and Order Management System
 This project is a database-driven Inventory and Order Management System designed to handle product tracking, customer orders, stock monitoring, and reporting. It includes schema creation, stored procedures for automation, and views for reporting and analytics.
 
