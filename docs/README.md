@@ -57,4 +57,3 @@ Automated reorder alerts and stock replenishment
 📬 Contact
 Feel free to reach out for suggestions or contributions!
 
-
