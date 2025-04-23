@@ -94,10 +94,10 @@ spark-submit src/main.py
 ```
 tmdb-movie-analysis/
 │
-├── config/           # API configuration files
 ├── data/             # Raw and processed data
 ├── notebooks/        # Jupyter notebooks for exploratory analysis
 ├── src/              # Source code and pipeline scripts
+├── visuals/          # Project Visuals
 ├── .gitignore        # Files to ignore in version control
 ├── requirements.txt  # Project dependencies
 └── README.md         # Project overview and documentation
