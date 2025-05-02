@@ -8,11 +8,14 @@ This project demonstrates how to stream CSV files into a PostgreSQL database usi
 
 ```
 .
-├──data_generator.py              # Data generator
-├──Diagram /                      # Flow diagram for the project
+
+├──Diagram /                       # Flow diagram for the project
+├── docs /                         # Text documents
+├── markdown /                     # markdowns          
 ├── Dockerfile                    # Docker image for Spark app
 ├── docker-compose.yml           # Docker Compose file to manage Spark and PostgreSQL containers
 ├── Spark_Streaming_to_Postgres_New.py  # PySpark script for streaming CSVs to Postgres
+├──data_generator.py              # Data generator
 └── ecommerce_events/            # Folder where new CSV files are placed
 ```
 
