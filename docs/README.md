@@ -71,9 +71,7 @@ LIMIT 100;
 Choose Time Series as the visualization type.
 
 🧱 Directory Structure
-pgsql
-Copy
-Edit
+
 heartbeat-monitoring/
 ├── docker-compose.yml
 ├── kafka_client/
@@ -83,7 +81,9 @@ heartbeat-monitoring/
 │   ├── consumer.py
 │   └── db/
 │       └── schema.sql
-├── grafana_data/ (volume)
+├── dashboard/
+│   ├── app.py
+
 ⚙️ Tech Stack
 Python (kafka-python, psycopg2)
 
