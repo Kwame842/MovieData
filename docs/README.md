@@ -43,13 +43,13 @@ Go to Configuration → Data Sources
 
 Add a PostgreSQL data source:
 
-Host: postgres:5432
+Host: postgres:****
 
 Database: heartbeats
 
-User: postgres
+User: *****
 
-Password: pgpass007
+Password: *******
 
 SSL: Disable
 
