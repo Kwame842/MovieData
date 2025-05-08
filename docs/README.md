@@ -15,15 +15,11 @@ Grafana: Visualizes heartbeat trends in real time using data from PostgreSQL.
 
 🚀 Quick Start (Dockerized)
 1️⃣ Clone the repository
-bash
-Copy
-Edit
+
 git clone <your-repo-url>
 cd heartbeat-monitoring
 2️⃣ Start the full stack with Docker
-bash
-Copy
-Edit
+
 docker compose up --build
 This will launch:
 
@@ -59,12 +55,9 @@ SSL: Disable
 
 Create a panel with the following query:
 
-sql
-Copy
-Edit
 SELECT
-  timestamp AS "time",
-  bpm AS heart_rate
+timestamp AS "time",
+bpm AS heart_rate
 FROM heartbeats
 ORDER BY timestamp DESC
 LIMIT 100;
@@ -75,14 +68,17 @@ Choose Time Series as the visualization type.
 heartbeat-monitoring/
 ├── docker-compose.yml
 ├── kafka_client/
-│   ├── Dockerfile
-│   ├── requirements.txt
-│   ├── producer.py
-│   ├── consumer.py
-│   └── db/
-│       └── schema.sql
+│ ├── Dockerfile
+│ ├── requirements.txt
+│ ├── producer.py
+│ ├── consumer.py
+│ └── db/
+│ └── schema.sql
 ├── dashboard/
-│   ├── app.py
+│ ├── app.py
+├── docs/
+├── README.md
+└── screenshots/
 
 ⚙️ Tech Stack
 Python (kafka-python, psycopg2)
@@ -96,9 +92,7 @@ Grafana
 Docker Compose
 
 📦 Requirements (if running manually)
-txt
-Copy
-Edit
+
 kafka-python
 psycopg2-binary
 pandas
