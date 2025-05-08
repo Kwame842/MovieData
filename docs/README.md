@@ -76,6 +76,8 @@ heartbeat-monitoring/
 │ └── schema.sql
 ├── dashboard/
 │ ├── app.py
+├── diagram/
+│   ├── Data_pipeline_architecture.png
 ├── docs/
 ├── README.md
 └── screenshots/
