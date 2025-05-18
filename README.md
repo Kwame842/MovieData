@@ -1,11 +1,34 @@
-# ✈️ Airflow Docker Project – PostgreSQL & MySQL Integration
+# ✈️ Airflow Project – Flight Price Analysis (Bangladesh)
 
-This project sets up an Apache Airflow environment using Docker Compose with support for:
+This project sets up an end-to-end **Apache Airflow pipeline** using **Docker Compose**, designed to process and analyze **flight price data for Bangladesh**. The pipeline supports:
 
-- PostgreSQL as the metadata database
-- MySQL as a data source (e.g., `flight_staging`)
-- Custom configuration and Python packages
-- A clean structure for DAGs, plugins, and configs
+- MySQL as a **staging** database
+- PostgreSQL as the **analytics** database
+- Full data ingestion, validation, transformation, and KPI computation
+
+---
+
+## 📊 Project Goals
+
+Build a data pipeline that:
+
+1. Ingests raw CSV data into a MySQL staging table
+2. Validates and cleans the data
+3. Computes KPIs like average fare, booking counts, and seasonal fare trends
+4. Loads results into PostgreSQL for analysis
+
+---
+
+## 🧱 Technologies
+
+- **Airflow** (orchestration)
+- **Docker & Docker Compose**
+- **MySQL** (staging)
+- **PostgreSQL** (analytics)
+- **Python** (data processing)
+- **CSV Input**: [Flight Price Dataset – Bangladesh (Kaggle)](https://www.kaggle.com/datasets/mahatiratusher/flight-price-dataset-of-bangladesh)
+
+---
 
 ## 📁 Project Structure
 
@@ -14,18 +37,18 @@ This project sets up an Apache Airflow environment using Docker Compose with sup
 ├── config/                    # Custom config modules
 │   ├── __init__.py
 │   └── settings.py
-├── dags/                      # DAGs live here
-│   └──flight_price_pipeline.py
-├── diagram/                   # Architecture diagram
+├── dags/                      # Airflow DAGs
+│   └── flight_price_pipeline.py
+├── diagram/                   # Architecture or pipeline diagram
 ├── docker/
-│       └──mysql               # Database and configurations
-├── plugins/                   # Custom operators, helpers, etc.
-├── scrrenshots/               # Screenshots of the Airflow UI
-├── data/                      # Any input/output data
+│   └── mysql/                 # MySQL init scripts
+├── data/                      # Source data (CSV) and any output
 ├── logs/                      # Airflow logs
-├── docker-compose.yml         # Docker Compose services
-├── requirements.txt            # Python dependencies
+├── plugins/                   # Custom operators/helpers
+├── screenshots/               # UI snapshots
 ├── Dockerfile                 # Custom Airflow image
+├── docker-compose.yml         # Docker Compose services
+├── requirements.txt           # Python dependencies
 └── README.md
 ```
 
@@ -33,39 +56,40 @@ This project sets up an Apache Airflow environment using Docker Compose with sup
 
 ## 🚀 Features
 
-- **PostgreSQL**: Metadata database for Airflow.
-- **MySQL**: Staging database initialized via `init.sql`.
-- **Custom Configuration**: Use `config/settings.py` in DAGs via clean import paths.
-- **LocalExecutor**: Run tasks in parallel for small to medium workloads.
-- **Basic Auth**: Log in via username/password (`admin:admin` by default).
+- 🗃 **Ingestion** of raw CSV into MySQL
+- 🧹 **Validation**: Data type checks, null handling, business rules
+- 🔁 **Transformation**: Computes total fare and aggregates
+- 📈 **KPI Computation**:
+  - Average Fare by Airline
+  - Booking Count by Airline
+  - Most Popular Routes
+  - Seasonal Fare Variations (e.g., Eid, winter)
+- 📦 **Data Loading** into PostgreSQL for analytics
+- 🔐 **Basic Auth**: Airflow Web UI secured (`admin:admin`)
+- ⚙️ Custom `config/` modules for reuse in DAGs
 
 ---
 
 ## 🛠️ Prerequisites
 
-- Docker & Docker Compose installed
+- Docker & Docker Compose installed locally
+- Place the raw CSV file in `data/` as `Flight_Price_Dataset_of_Bangladesh.csv`
 
 ---
 
-## 🔧 Configuration
+## 🔧 Configuration Details
 
-### `Dockerfile`
+### Dockerfile
 
-Custom image built from `apache/airflow:2.8.1-python3.10`, extended with required system packages and custom modules:
+Extends `apache/airflow:2.8.1-python3.10` with MySQL/PostgreSQL drivers and config:
 
 ```dockerfile
 FROM apache/airflow:2.8.1-python3.10
 
 USER root
-RUN apt-get update && apt-get install -y \
-    gcc \
-    libpq-dev \
-    default-libmysqlclient-dev \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y     gcc     libpq-dev     default-libmysqlclient-dev  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 USER airflow
-
 COPY ./dags /opt/airflow/dags
 COPY ./plugins /opt/airflow/plugins
 COPY ./config /opt/airflow/config
@@ -73,16 +97,16 @@ COPY ./config /opt/airflow/config
 ENV PYTHONPATH="${PYTHONPATH}:/opt/airflow/config:/opt/airflow/plugins"
 ```
 
-### Docker Compose Environment (`docker-compose.yml`)
+### docker-compose.yml
 
-Key settings include:
+Defines all services:
 
-- PostgreSQL container with health check
-- MySQL container initialized with an SQL script
-- Airflow Webserver and Scheduler sharing code/config
-- PYTHONPATH correctly set for custom imports
+- `airflow-webserver`, `airflow-scheduler`
+- `postgres` (analytics DB)
+- `mysql` (staging DB with `init.sql`)
+- Correct `PYTHONPATH` and volume mappings
 
-Update:
+Update `.env` or YAML as needed:
 
 ```yaml
 - AIRFLOW__CORE__PYTHONPATH=/opt/airflow/config:/opt/airflow/plugins
@@ -90,60 +114,68 @@ Update:
 
 ---
 
-## 🧪 Getting Started
+## ⚙️ Getting Started
 
-1. **Clone the repository**
-
+1. **Clone the repository**  
    ```bash
-   git clone https://github.com/your-repo/airflow-docker-mysql-postgres.git
-   cd airflow-docker-mysql-postgres
+   git clone https://github.com/your-repo/airflow-flight-price.git
+   cd airflow-flight-price
    ```
 
-2. **Create init files if missing**
-
+2. **Ensure init files exist**  
    ```bash
    touch config/__init__.py
    ```
 
-3. **Build & run containers**
+3. **Place the flight dataset in `data/`**  
+   File name: `Flight_Price_Dataset_of_Bangladesh.csv`
 
+4. **Build and run the containers**  
    ```bash
    docker-compose down --volumes --remove-orphans
    docker-compose build
    docker-compose up
    ```
 
-4. **Access Airflow UI**  
-   Go to [http://localhost:8080](http://localhost:8080)  
-   Login:
-   - Username: `admin`
+5. **Access the Airflow Web UI**  
+   - URL: [http://localhost:8080](http://localhost:8080)  
+   - Username: `admin`  
    - Password: `admin`
 
 ---
 
-## ✅ DAG Example
+## 📈 KPI Logic & DAG Design
 
-In any DAG, you can safely import config like this:
+Each DAG task performs one pipeline step:
+
+1. **Ingest CSV → MySQL**: Load and map schema
+2. **Validate Data**: Missing/null checks, data types, range checks
+3. **Transform & Compute KPIs**:
+   - `Total Fare = Base Fare + Tax & Surcharge`
+   - Group by airline, route, and season
+4. **Load to PostgreSQL**: Push analytics-ready tables
+
+Sample config import in a DAG:
 
 ```python
 from config.settings import settings
 ```
 
-Make sure `settings.py` contains your structured configuration, e.g.,:
+Example `settings.py`:
 
 ```python
-# config/settings.py
 settings = {
     "source_db": "mysql",
-    "target_db": "postgres"
+    "target_db": "postgres",
+    "csv_path": "data/Flight_Price_Dataset_of_Bangladesh.csv"
 }
 ```
 
 ---
 
-## 🧹 Cleaning Up
+## 🧹 Cleanup
 
-Stop and remove all containers and volumes:
+Stop containers and clear volumes:
 
 ```bash
 docker-compose down --volumes --remove-orphans
@@ -151,9 +183,9 @@ docker-compose down --volumes --remove-orphans
 
 ---
 
-## 📬 Feedback & Contribution
+## 🤝 Contributing
 
-Feel free to fork, improve, and submit pull requests. For issues, please open a GitHub issue.
+Have ideas or improvements? Fork and submit a pull request, or open a GitHub issue.
 
 ---
 
